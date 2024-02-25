@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.play-btn {
+  background: linear-gradient(to bottom, #f16cb0 20%, #dd2d7b 90%);
+}
+
+.tile-cont {
+  perspective: 100px;
+}
+
+.tile,
+.front-tile {
+  transition: 0.3s;
+}
+
+.tile.active {
+  transform: rotateY(180deg);
+}
+
+.front-tile {
+  transform: rotateY(-180deg);
+  backface-visibility: hidden;
+}
+
+.front-tile.active {
+  transform: rotateY(0deg);
+}
+
+.modal.active {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+.winLoseModal {
+  transition: transform 0.3s ease-in-out;
+}
+
+.winLoseModal.active {
+  transform: translate(-50%, -50%);
+}
