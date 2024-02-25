@@ -69,7 +69,7 @@ export function PlayScreen({ end, difficulty }) {
   // This useEffect controls the timer
   useEffect(() => {
     let interval;
-    if (timer && timer > 0) {
+    if (timer && timer > 0 && !winLose) {
       interval = setInterval(() => {
         setTimer((prevTime) => {
           return prevTime - 1;
@@ -80,7 +80,6 @@ export function PlayScreen({ end, difficulty }) {
       clearInterval(interval);
     }
 
-    console.log(timer);
     return () => {
       clearInterval(interval);
     };
@@ -90,16 +89,16 @@ export function PlayScreen({ end, difficulty }) {
     if (difficulty === "Medium") {
       setLives(10);
       setLives2(10);
-      setTimer(120);
+      setTimer(105);
     }
     if (difficulty === "Hard") {
       setLives(7);
       setLives2(7);
-      setTimer(10);
+      setTimer(75);
     }
 
     if (difficulty === "Easy") {
-      setTimer(165);
+      setTimer(120);
     }
   }, []);
 
@@ -291,7 +290,7 @@ export function PlayScreen({ end, difficulty }) {
 
   return (
     <>
-      <RiveComponent className="fixed top-0 left-0 w-full h-full -1024:hidden" />
+      <RiveComponent className="fixed top-0 left-0 w-full h-full -1024:opacity-0 -1024:pointer-events-none -1024:scale-0" />
 
       {}
       <div
@@ -316,12 +315,12 @@ export function PlayScreen({ end, difficulty }) {
           </h2>
           <p className="my-2 text-center">
             {winLose == "win"
-              ? `You won the game with ${lives2} lives left and ${tryCount} tries!`
-              :  timer == 0
+              ? `You won the game with ${
+                  lives2 ? `${lives2} lives left,` : ""
+                } ${tryCount} tries and ${timer} seconds to spare!`
+              : timer == 0
               ? "You ran out of time!. Click on the button to start a new game"
               : "You ran out of lives. Click on the button to start a new game"}
-
-       
           </p>
         </div>
         <button
@@ -334,11 +333,17 @@ export function PlayScreen({ end, difficulty }) {
         </button>
       </div>
 
-      <div className="min-h-[100vh] w-full flex flex-col gap-10 justify-center items-center p-3 -1024:scale-[0.8] -400:scale-[0.7] relative">
-        <div className="flex gap-3 items-center justify-center text-2xl font-[500] w-full">
+      <div className="min-h-[100vh] max-w-[500px] mx-auto w-full flex flex-col gap-10 justify-center items-center p-3 -1024:scale-[0.8] -400:scale-[0.7] relative">
+        <div className="flex gap-3 items-center justify-center text-2xl font-[500] w-full relative">
           <p className="text-[#595BEF]">Tries</p>
           <div className="bg-[#C7D2FF] px-3 rounded-lg text-[#595BEF]">
             {tryCount}
+          </div>
+          <div className="absolute top-[-40px] right-[-40px]">
+            <p className="text-3xl font-[600] text-[#595BEF]">
+              {`${Math.floor(timer / 60)}`.padStart(2, 0)}:
+              {`${timer % 60}`.padStart(2, 0)}
+            </p>
           </div>
         </div>
 
@@ -357,12 +362,6 @@ export function PlayScreen({ end, difficulty }) {
             <p>Lives: Unlimited</p>
           </div>
         )}
-        <div className="absolute top-6 right-6">
-          <p className="text-3xl font-[600] text-[#595BEF]">
-            {`${Math.floor(timer / 60)}`.padStart(2, 0)}:
-            {`${timer % 60}`.padStart(2, 0)}
-          </p>
-        </div>
       </div>
     </>
   );
