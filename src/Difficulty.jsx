@@ -13,7 +13,8 @@ export default function Difficulty(props) {
       >
         <div className="py-4">
           <h2 className="font-bold text-xl">{props.difficulty} mode</h2>
-          <p className="my-2">{props.modeDescrip}</p>
+          <p className="my-2">{props.modeDescrip1}</p>
+          <p className="my-2">{props.modeDescrip2}</p>
         </div>
       </div>
       <div className="flex gap-4 justify-center items-center w-full difficulty">

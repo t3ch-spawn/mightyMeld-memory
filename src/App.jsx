@@ -40,7 +40,8 @@ function App() {
                 </h2>
                 <Difficulty
                   difficulty="Easy"
-                  modeDescrip={`-Unlimited Lives`}
+                  modeDescrip1={"-Unlimited Lives"}
+                  modeDescrip2={"-Timer at 2:45"}
                   play={() => {
                     setGameState("play");
                     setDifficulty("Easy");
@@ -48,7 +49,8 @@ function App() {
                 />
                 <Difficulty
                   difficulty="Medium"
-                  modeDescrip={`-Limited Lives(10)`}
+                  modeDescrip1={`-Limited Lives(10)`}
+                  modeDescrip2={`-Timer at 2:00`}
                   play={() => {
                     setGameState("play");
                     setDifficulty("Medium");
@@ -56,7 +58,8 @@ function App() {
                 />
                 <Difficulty
                   difficulty="Hard"
-                  modeDescrip={`-Limited Lives(6)`}
+                  modeDescrip1={`-Limited Lives(6)`}
+                  modeDescrip2={`-Timer at 1:30`}
                   play={() => {
                     setGameState("play");
                     setDifficulty("Hard");

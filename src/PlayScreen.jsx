@@ -63,14 +63,43 @@ export function PlayScreen({ end, difficulty }) {
   // This state sets the win or lose of the player
   const [winLose, setWinLose] = useState(null);
 
+  // This state controls the timer
+  const [timer, setTimer] = useState(null);
+
+  // This useEffect controls the timer
+  useEffect(() => {
+    let interval;
+    if (timer && timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prevTime) => {
+          return prevTime - 1;
+        });
+      }, 1000);
+    } else if (timer === 0) {
+      setWinLose("lose");
+      clearInterval(interval);
+    }
+
+    console.log(timer);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [timer]);
+
   useEffect(() => {
     if (difficulty === "Medium") {
       setLives(10);
       setLives2(10);
+      setTimer(120);
     }
     if (difficulty === "Hard") {
-      setLives(6);
-      setLives2(6);
+      setLives(7);
+      setLives2(7);
+      setTimer(10);
+    }
+
+    if (difficulty === "Easy") {
+      setTimer(165);
     }
   }, []);
 
@@ -177,7 +206,7 @@ export function PlayScreen({ end, difficulty }) {
 
           return newTiles;
         });
-      }, 1000);
+      }, 500);
     }
 
     setTiles((prevTiles) => {
@@ -283,12 +312,16 @@ export function PlayScreen({ end, difficulty }) {
       >
         <div className="py-4">
           <h2 className="font-bold text-3xl text-center">
-            {winLose == "win" ? "You Won!" : "You Lost"}
+            {winLose == "win" ? "You Won!" : "Oops, you Lost."}
           </h2>
           <p className="my-2 text-center">
             {winLose == "win"
               ? `You won the game with ${lives2} lives left and ${tryCount} tries!`
+              :  timer == 0
+              ? "You ran out of time!. Click on the button to start a new game"
               : "You ran out of lives. Click on the button to start a new game"}
+
+       
           </p>
         </div>
         <button
@@ -301,8 +334,8 @@ export function PlayScreen({ end, difficulty }) {
         </button>
       </div>
 
-      <div className="min-h-[100vh] w-full flex flex-col gap-10 justify-center items-center p-3 -1024:scale-[0.8] -400:scale-[0.7]">
-        <div className="flex gap-3 items-center justify-center text-2xl font-[500]">
+      <div className="min-h-[100vh] w-full flex flex-col gap-10 justify-center items-center p-3 -1024:scale-[0.8] -400:scale-[0.7] relative">
+        <div className="flex gap-3 items-center justify-center text-2xl font-[500] w-full">
           <p className="text-[#595BEF]">Tries</p>
           <div className="bg-[#C7D2FF] px-3 rounded-lg text-[#595BEF]">
             {tryCount}
@@ -324,6 +357,12 @@ export function PlayScreen({ end, difficulty }) {
             <p>Lives: Unlimited</p>
           </div>
         )}
+        <div className="absolute top-6 right-6">
+          <p className="text-3xl font-[600] text-[#595BEF]">
+            {`${Math.floor(timer / 60)}`.padStart(2, 0)}:
+            {`${timer % 60}`.padStart(2, 0)}
+          </p>
+        </div>
       </div>
     </>
   );
