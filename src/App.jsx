@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PlayScreen } from "./PlayScreen";
 import { StartScreen } from "./StartScreen";
 import Difficulty from "./Difficulty";
 import gsap from "gsap";
-import { Transition } from "./Transition";
+import { Transition, runTransition } from "./Transition";
 
 function App() {
   const [gameState, setGameState] = useState("start");
@@ -25,12 +25,26 @@ function App() {
       });
   }
 
+  useEffect(() => {
+    gsap.set(".home", {
+      opacity: 0,
+      y: 100,
+    });
+
+    runTransition("pink", () => {
+      gsap.to(".home", {
+        opacity: 1,
+        y: 0,
+      });
+    });
+  }, []);
+
   switch (gameState) {
     case "start":
       return (
         <>
           <Transition />
-          <div className="w-full home max-w-[500px] mx-auto min-h-[100vh] flex justify-center items-center relative overflow-hidden -1024:scale-[0.8] -400:scale-[0.7]">
+          <div className="w-full max-w-[500px] opacity-0 home mx-auto min-h-[100vh] flex justify-center items-center relative overflow-hidden -1024:scale-[0.8] -400:scale-[0.7]">
             <div className="play-screen-slider w-full flex justify-center items-center">
               <div className=" h-full w-full absolute flex justify-center items-center gap-6 flex-col">
                 <StartScreen start={() => moveCard()} />

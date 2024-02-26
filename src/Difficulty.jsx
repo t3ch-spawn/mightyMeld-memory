@@ -22,7 +22,7 @@ export default function Difficulty(props) {
         <button
           onClick={() => {
             props.play();
-            runTransition('pink');
+            runTransition('blue');
           }}
           className="rounded-lg w-[70%] bg-[#E4458F] text-white p-3 px-6 text-2xl font-[500] play-btn relative"
         >

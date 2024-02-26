@@ -29,7 +29,7 @@ export const possibleTileContents = [
 export function PlayScreen({ end, difficulty }) {
   // Code for rive animation
   const { rive, RiveComponent } = useRive({
-    src: "/character.riv",
+    src: "../character.riv",
     stateMachines: "character",
     autoplay: true,
     layout: new Layout({
@@ -212,7 +212,8 @@ export function PlayScreen({ end, difficulty }) {
   };
 
   function newGame() {
-    setTimeout(end, 0);
+    // setTimeout(end, 0);
+    window.location.reload();
   }
   //   This useEffect animates the tiles in on mount
   useEffect(() => {
@@ -315,7 +316,7 @@ export function PlayScreen({ end, difficulty }) {
                 setTimer(105);
               }
               if (difficulty === "Hard") {
-                setTimer(75);
+                setTimer(5);
               }
 
               if (difficulty === "Easy") {

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
 
-export function runTransition(color) {
+export function runTransition(color, fn) {
   if (color == "pink") {
     gsap
       .timeline()
@@ -17,6 +17,11 @@ export function runTransition(color) {
         transformOrigin: "top",
         duration: 1,
         delay: -1,
+        onComplete: () => {
+          if (fn) {
+            fn();
+          }
+        },
       });
   } else if (color == "blue") {
     gsap
@@ -26,12 +31,6 @@ export function runTransition(color) {
         ease: "power2.in",
         transformOrigin: "bottom",
         duration: 1.5,
-        onStart: () => {
-          gsap.set(".home", {
-            opacity: 0,
-            y: 100,
-          });
-        },
       })
       .to(".blue-bg", {
         scaleY: 0,
@@ -39,12 +38,11 @@ export function runTransition(color) {
         transformOrigin: "top",
         duration: 1,
         delay: -1,
-        onComplete:()=>{
-            gsap.to(".home", {
-                opacity: 1,
-                y: 0,
-              });
-        }
+        onComplete: () => {
+          if (fn) {
+            fn();
+          }
+        },
       });
   }
 }
