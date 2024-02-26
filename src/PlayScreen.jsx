@@ -276,7 +276,7 @@ export function PlayScreen({ end, difficulty }) {
             scaleY: 1,
             ease: "power3.in",
             duration: 0.5,
-            delay: 1.1,
+            delay: 1.4,
             onComplete: translateTiles,
           }
         )
@@ -316,7 +316,7 @@ export function PlayScreen({ end, difficulty }) {
                 setTimer(105);
               }
               if (difficulty === "Hard") {
-                setTimer(5);
+                setTimer(75);
               }
 
               if (difficulty === "Easy") {
