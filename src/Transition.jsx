@@ -26,6 +26,12 @@ export function runTransition(color) {
         ease: "power2.in",
         transformOrigin: "bottom",
         duration: 1.5,
+        onStart: () => {
+          gsap.set(".home", {
+            opacity: 0,
+            y: 100,
+          });
+        },
       })
       .to(".blue-bg", {
         scaleY: 0,
@@ -33,6 +39,12 @@ export function runTransition(color) {
         transformOrigin: "top",
         duration: 1,
         delay: -1,
+        onComplete:()=>{
+            gsap.to(".home", {
+                opacity: 1,
+                y: 0,
+              });
+        }
       });
   }
 }

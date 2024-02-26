@@ -30,7 +30,7 @@ function App() {
       return (
         <>
           <Transition />
-          <div className="w-full max-w-[500px] mx-auto min-h-[100vh] flex justify-center items-center relative overflow-hidden -1024:scale-[0.8] -400:scale-[0.7]">
+          <div className="w-full home max-w-[500px] mx-auto min-h-[100vh] flex justify-center items-center relative overflow-hidden -1024:scale-[0.8] -400:scale-[0.7]">
             <div className="play-screen-slider w-full flex justify-center items-center">
               <div className=" h-full w-full absolute flex justify-center items-center gap-6 flex-col">
                 <StartScreen start={() => moveCard()} />
