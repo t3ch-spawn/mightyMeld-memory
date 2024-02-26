@@ -11,6 +11,7 @@ import {
   Layout,
   useStateMachineInput,
 } from "@rive-app/react-canvas";
+import { runTransition } from "./Transition";
 
 export const possibleTileContents = [
   icons.GiHearts,
@@ -89,16 +90,10 @@ export function PlayScreen({ end, difficulty }) {
     if (difficulty === "Medium") {
       setLives(10);
       setLives2(10);
-      setTimer(105);
     }
     if (difficulty === "Hard") {
       setLives(7);
       setLives2(7);
-      setTimer(75);
-    }
-
-    if (difficulty === "Easy") {
-      setTimer(120);
     }
   }, []);
 
@@ -268,19 +263,67 @@ export function PlayScreen({ end, difficulty }) {
     }
 
     let ctx = gsap.context(() => {
-      gsap.timeline().fromTo(
-        ".all-tiles-cont",
-        {
-          scaleY: 0,
-          transformOrigin: "center",
-        },
-        {
-          scaleY: 1,
-          ease: "power3.in",
-          duration: 0.5,
-          onComplete: translateTiles,
-        }
-      );
+      gsap
+        .timeline()
+        .fromTo(
+          ".all-tiles-cont",
+          {
+            scaleY: 0,
+            transformOrigin: "center",
+          },
+          {
+            scaleY: 1,
+            ease: "power3.in",
+            duration: 0.5,
+            delay: 1.1,
+            onComplete: translateTiles,
+          }
+        )
+        .fromTo(
+          ".hearts-cont",
+          {
+            y: 100,
+            opacity: 0,
+          },
+          {
+            opacity: 1,
+            y: 0,
+          }
+        )
+        .fromTo(
+          ".tries-cont",
+          {
+            y: 100,
+            opacity: 0,
+          },
+          {
+            opacity: 1,
+            y: 0,
+          }
+        )
+        .fromTo(
+          ".timer-cont",
+          {
+            y: 100,
+            opacity: 0,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            onComplete: () => {
+              if (difficulty === "Medium") {
+                setTimer(105);
+              }
+              if (difficulty === "Hard") {
+                setTimer(75);
+              }
+
+              if (difficulty === "Easy") {
+                setTimer(120);
+              }
+            },
+          }
+        );
     });
 
     return () => {
@@ -324,7 +367,10 @@ export function PlayScreen({ end, difficulty }) {
           </p>
         </div>
         <button
-          onClick={newGame}
+          onClick={()=>{
+            newGame()
+            runTransition('blue')
+          }}
           className={`${
             winLose == "win" ? "bg-[#A5B4FD] text-white" : "bg-white text-[red]"
           } py-2 px-4  ease-in-out font-[500]  text-xl rounded-2xl shadow`}
@@ -334,12 +380,12 @@ export function PlayScreen({ end, difficulty }) {
       </div>
 
       <div className="min-h-[100vh] max-w-[500px] mx-auto w-full flex flex-col gap-10 justify-center items-center p-3 -1024:scale-[0.8] -400:scale-[0.7] relative">
-        <div className="flex gap-3 items-center justify-center text-2xl font-[500] w-full relative">
+        <div className="flex gap-3 items-center justify-center text-2xl font-[500] w-full relative tries-cont">
           <p className="text-[#595BEF]">Tries</p>
           <div className="bg-[#C7D2FF] px-3 rounded-lg text-[#595BEF]">
             {tryCount}
           </div>
-          <div className="absolute top-[-40px] right-[-40px]">
+          <div className="absolute top-[-40px] right-[-40px] timer-cont">
             <p className="text-3xl font-[600] text-[#595BEF]">
               {`${Math.floor(timer / 60)}`.padStart(2, 0)}:
               {`${timer % 60}`.padStart(2, 0)}
@@ -353,12 +399,12 @@ export function PlayScreen({ end, difficulty }) {
           ))}
         </div>
         {difficulty !== "Easy" ? (
-          <div className="flex items-center gap-2 text-xl text-[#595BEF] font-[700] ">
-            <p>Lives({lives2}):</p>
+          <div className="flex items-center gap-2 text-xl text-[#595BEF] font-[700] hearts-cont">
+            <p className="">Lives({lives2}):</p>
             <div className="flex">{hearts}</div>
           </div>
         ) : (
-          <div className="flex items-center gap-2 text-xl text-[#595BEF] font-[700]">
+          <div className="flex items-center gap-2 text-xl text-[#595BEF] font-[700] hearts-cont">
             <p>Lives: Unlimited</p>
           </div>
         )}

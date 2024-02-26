@@ -3,6 +3,7 @@ import { PlayScreen } from "./PlayScreen";
 import { StartScreen } from "./StartScreen";
 import Difficulty from "./Difficulty";
 import gsap from "gsap";
+import { Transition } from "./Transition";
 
 function App() {
   const [gameState, setGameState] = useState("start");
@@ -28,6 +29,7 @@ function App() {
     case "start":
       return (
         <>
+          <Transition />
           <div className="w-[95%] max-w-[500px] mx-auto min-h-[100vh] flex justify-center items-center relative overflow-hidden -1024:scale-[0.8] -400:scale-[0.7]">
             <div className="play-screen-slider w-full flex justify-center items-center">
               <div className=" h-full w-full absolute flex justify-center items-center gap-6 flex-col">
@@ -72,7 +74,13 @@ function App() {
       );
     case "play":
       return (
-        <PlayScreen end={() => setGameState("start")} difficulty={difficulty} />
+        <>
+          <Transition />
+          <PlayScreen
+            end={() => setGameState("start")}
+            difficulty={difficulty}
+          />
+        </>
       );
     default:
       throw new Error("Invalid game state " + gameState);

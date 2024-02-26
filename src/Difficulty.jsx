@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { runTransition } from "./Transition";
 
 export default function Difficulty(props) {
   function toggleModal(e) {
@@ -19,7 +20,10 @@ export default function Difficulty(props) {
       </div>
       <div className="flex gap-4 justify-center items-center w-full difficulty">
         <button
-          onClick={props.play}
+          onClick={() => {
+            props.play();
+            runTransition('pink');
+          }}
           className="rounded-lg w-[70%] bg-[#E4458F] text-white p-3 px-6 text-2xl font-[500] play-btn relative"
         >
           {props.difficulty}
