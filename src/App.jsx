@@ -26,13 +26,13 @@ function App() {
   }
 
   useEffect(() => {
-    gsap.set(".home", {
+    gsap.set(".home-screen", {
       opacity: 0,
       y: 100,
     });
 
     runTransition("pink", () => {
-      gsap.to(".home", {
+      gsap.to(".home-screen", {
         opacity: 1,
         y: 0,
       });
@@ -44,14 +44,14 @@ function App() {
       return (
         <>
           <Transition />
-          <div className="w-full max-w-[500px] opacity-0 home mx-auto min-h-[100vh] flex justify-center items-center relative overflow-hidden -1024:scale-[0.8] -400:scale-[0.7]">
-            <div className="play-screen-slider w-full flex justify-center items-center">
-              <div className=" h-full w-full absolute flex justify-center items-center gap-6 flex-col">
+          <div className="w-full max-w-[500px] opacity-0 home-screen mx-auto min-h-[100vh] flex justify-center items-center relative overflow-hidden">
+            <div className="play-screen-slider w-full flex justify-center items-center ">
+              <div className=" h-full w-full absolute flex justify-center items-center gap-6 flex-col -1024:scale-[0.8]">
                 <StartScreen start={() => moveCard()} />
               </div>
 
-              <div className="w-full h-[500px] absolute translate-x-[110%] flex flex-col gap-4 items-center justify-center bg-[#FDF3F8] rounded-xl">
-                <h2 className="difficulty text-4xl font-[600] mb-8 text-[#E4458F]">
+              <div className="w-full h-[500px] absolute translate-x-[110%] flex flex-col gap-4 items-center justify-center bg-[#FDF3F8] rounded-xl -1024:scale-[0.8] px-3 ">
+                <h2 className="difficulty text-4xl font-[600] mb-8 text-[#E4458F] text-center">
                   Select Difficulty
                 </h2>
                 <Difficulty
