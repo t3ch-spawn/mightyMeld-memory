@@ -10,6 +10,7 @@ export function runTransition(color, fn) {
         ease: "power2.in",
         transformOrigin: "bottom",
         duration: 1.5,
+        delay: 0.5,
       })
       .to(".pink-bg", {
         scaleY: 0,
