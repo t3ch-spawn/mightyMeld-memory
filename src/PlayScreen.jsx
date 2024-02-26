@@ -315,7 +315,7 @@ export function PlayScreen({ end, difficulty }) {
                 setTimer(105);
               }
               if (difficulty === "Hard") {
-                setTimer(5);
+                setTimer(75);
               }
 
               if (difficulty === "Easy") {
