@@ -323,6 +323,19 @@ export function PlayScreen({ end, difficulty }) {
               }
             },
           }
+        )
+        .fromTo(
+          ".rive-comp",
+          {
+            y: 100,
+            opacity: 0,
+            scale: 0,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+          }
         );
     });
 
@@ -333,7 +346,7 @@ export function PlayScreen({ end, difficulty }) {
 
   return (
     <>
-      <RiveComponent className="fixed top-0 left-0 w-full h-full -1024:opacity-0 -1024:pointer-events-none -1024:scale-0" />
+      <RiveComponent className="fixed top-0 left-0 w-full h-full -1024:opacity-0 -1024:pointer-events-none -1024:scale-0 rive-comp" />
 
       {}
       <div
@@ -367,9 +380,9 @@ export function PlayScreen({ end, difficulty }) {
           </p>
         </div>
         <button
-          onClick={()=>{
-            newGame()
-            runTransition('blue')
+          onClick={() => {
+            newGame();
+            runTransition("blue");
           }}
           className={`${
             winLose == "win" ? "bg-[#A5B4FD] text-white" : "bg-white text-[red]"

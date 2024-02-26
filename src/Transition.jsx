@@ -9,11 +9,11 @@ export function runTransition(color) {
         scaleY: 100,
         ease: "power2.in",
         transformOrigin: "bottom",
-        duration: 1.35,
+        duration: 1.5,
       })
       .to(".pink-bg", {
         scaleY: 0,
-        ease: "power3.inOut",
+        ease: "power3.out",
         transformOrigin: "top",
         duration: 1,
         delay: -1,
