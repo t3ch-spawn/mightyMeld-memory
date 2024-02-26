@@ -9,13 +9,14 @@ export function runTransition(color) {
         scaleY: 100,
         ease: "power2.in",
         transformOrigin: "bottom",
-        duration: 0.5,
+        duration: 1.35,
       })
       .to(".pink-bg", {
         scaleY: 0,
         ease: "power3.inOut",
         transformOrigin: "top",
-        duration: 0.7,
+        duration: 1,
+        delay: -1,
       });
   } else if (color == "blue") {
     gsap
@@ -24,13 +25,14 @@ export function runTransition(color) {
         scaleY: 100,
         ease: "power2.in",
         transformOrigin: "bottom",
-        duration: 0.5,
+        duration: 1.5,
       })
       .to(".blue-bg", {
         scaleY: 0,
         ease: "power3.out",
         transformOrigin: "top",
-        duration: 0.7,
+        duration: 1,
+        delay: -1,
       });
   }
 }

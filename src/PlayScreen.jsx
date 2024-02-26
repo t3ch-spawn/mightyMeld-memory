@@ -310,7 +310,7 @@ export function PlayScreen({ end, difficulty }) {
           {
             opacity: 1,
             y: 0,
-            onComplete: () => {
+            onStart: () => {
               if (difficulty === "Medium") {
                 setTimer(105);
               }
