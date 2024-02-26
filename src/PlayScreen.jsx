@@ -381,7 +381,7 @@ export function PlayScreen({ end, difficulty }) {
         <button
           onClick={() => {
             newGame();
-            runTransition("blue");
+            // runTransition("blue");
           }}
           className={`${
             winLose == "win" ? "bg-[#A5B4FD] text-white" : "bg-white text-[red]"
